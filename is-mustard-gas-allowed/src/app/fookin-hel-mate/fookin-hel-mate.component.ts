@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   templateUrl: './fookin-hel-mate.component.html',
   styleUrls: ['./fookin-hel-mate.component.css']
 })
-  export class FookinHelMateComponent {
+export class FookinHelMateComponent {
   data: Object = new Object();
   loading: boolean = false;
   o: Observable<Object> = new Observable<Object>();
@@ -20,17 +20,19 @@ import { Observable } from 'rxjs';
       this.loading = false;
     });
   }
-  //Nota bene, questo è un metodo alternativo e compatto per fare la stessa cosa di 
-  //makeRequest senza dichiarare la variabile Observable e creando l’arrow function   
-  //direttamente dentro il metodo subscribe
-  /*
-  makeCompactRequest(): void {
+  makeCompactPost(): void {
     this.loading = true;
     this.http
-      .get('https://jsonplaceholder.typicode.com/posts/1')
-      .subscribe(newData => {
-      this.data = newData;
-      this.loading = false;
+      .post('https://jsonplaceholder.typicode.com/posts',
+        JSON.stringify({
+          body: 'bar',
+          title: 'foo',
+          userId: 1
+        })
+      )
+      .subscribe(data => {
+        this.data = data;
+        this.loading = false;
       });
-     }*/
+  }
 }
